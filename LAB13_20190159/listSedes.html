@@ -6,6 +6,8 @@
     <title>Bicicentro</title>
     <!-- Enlace al CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"></head>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <body>
 
 <div class="container mt-5">
@@ -31,30 +33,63 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Columna 1</th>
-                <th>Columna 2</th>
-                <th>Columna 3</th>
-                <th>Columna 4</th>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Ver detalles</th>
+
             </tr>
             </thead>
-            <tbody>
+            <tbody id="tablaData">
             <tr>
-                <td>Dato 1</td>
-                <td>Dato 2</td>
-                <td>Dato 3</td>
-                <td>Dato 4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+
             </tr>
-            <tr>
-                <td>Dato 5</td>
-                <td>Dato 6</td>
-                <td>Dato 7</td>
-                <td>Dato 8</td>
-            </tr>
+
             <!-- Puedes agregar más filas según sea necesario -->
             </tbody>
         </table>
     </div>
 </div>
+<script>
+
+    $( document ).ready(function() {
+        //AJAX:
+        $.ajax({
+            url: "http://localhost:3000/sedes",
+            method: "GET",
+            dataType: "json",  //como te va responder
+        })
+
+            .done(function (data){  //data u otra variable es la resuesta que recibe del serve eneste caso un json convalores para cada variable
+                console.log(data);
+                var contentHTML = "";
+                var numero = 0;
+                $.each(data, function (i, sedes){
+
+                    contentHTML += "<tr>";
+                    contentHTML += "<td>" + (numero+1) + "</td>";
+                    numero = numero +1;
+                    contentHTML += "<td>" + sedes.nombres + "</td>";
+                    contentHTML += "<td>" + sedes.direccion + "</td>";
+                    contentHTML += "<td>";
+                    contentHTML += "<button className='btn btn-primary' id='detallesBtn" + sedes.id+ "'> Más Detalles</button>";
+                    contentHTML += "</td>";
+                    contentHTML += "</tr>";
+
+                });
+                $("#tablaData").html(contentHTML);
+
+            })
+            .fail(function (err){
+                console.log(err);
+            })
+    });
+</script>
 
 <!-- Scripts de Bootstrap (jQuery y Popper.js necesarios para Bootstrap) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

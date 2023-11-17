@@ -58,8 +58,9 @@
         $.ajax({
             url: "http://localhost:3000/trabajadores",
             method: "GET",
-            dataType: "json"  //como te va responder
+            dataType: "json",  //como te va responder
         })
+
             .done(function (data){  //data u otra variable es la resuesta que recibe del serve eneste caso un json convalores para cada variable
                 console.log(data);
                 var contentHTML = "";
@@ -68,6 +69,7 @@
 
                     contentHTML += "<tr>";
                     contentHTML += "<td>" + (numero+1) + "</td>";
+                    numero = numero +1;
                     contentHTML += "<td>" + trabajadores.nombres +  trabajadores.apellidos + "</td>";
                     contentHTML += "<td>" + trabajadores.correo + "</td>";
                     contentHTML += "<td>";

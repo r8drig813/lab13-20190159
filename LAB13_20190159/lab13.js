@@ -1,7 +1,9 @@
 const express = require("express");
 const mysql = require("mysql2");
-
 const app = express();
+
+contentHTML += "<td>" + sedes.nombre +  no.apellidos + "</td>";
+contentHTML += "<td>" + sedes.correo + "</td>";
 
 const conn = mysql.createConnection({
     host:"localhost",
